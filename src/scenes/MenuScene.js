@@ -1,17 +1,23 @@
-import Phaser from 'phaser';
 
-class MenuScene extends Phaser.Scene {
+import BaseScene from './BaseScene';
+class MenuScene extends BaseScene {
 
     constructor(config){
-        super('MenuScene');
-        this.config = config;
+        super('MenuScene',config);
+       
+        this.menu = [
+            {scene: 'PlayScene',text:'Play'},
+            {scene: 'ScoreScene',text:'Score'},
+            {scene: null,text:'Exit'}
+        ]
     }
 
    
 
     create() {
-        this.createBG();
-        this.scene.start('PlayScene');
+        super.create();
+       // this.scene.start('PlayScene');
+       this.createMenu(this.menu);
       
     }
 

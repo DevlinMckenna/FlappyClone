@@ -1,17 +1,17 @@
 
-import Phaser from 'phaser';
+//import Phaser from 'phaser';
+import BaseScene from "./BaseScene";
 
 const pipesToRender = 4;
 
 
-class PlayScene extends Phaser.Scene {
+class PlayScene extends BaseScene {
 
     const
 
     constructor(config) {
-        super('PlayScene');
-        this.config = config;
 
+        super('PlayScene',config);
         this.bird = null;
         this.pipes = null;
         this.HorizontalinterPipeDist = 0;
@@ -27,7 +27,8 @@ class PlayScene extends Phaser.Scene {
 
 
     create() {
-        this.createBG();
+      
+        super.create();
         this.createBird();
         this.createPipes();
         this.createColliders();
