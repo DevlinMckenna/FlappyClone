@@ -4,7 +4,7 @@ import BaseScene from "./BaseScene";
 import PauseScene from "./pauseScene";
 
 const pipesToRender = 4;
-const colorQueue = ['white','white','white','white'];
+const colorQueue = ['white', 'white', 'white', 'white'];
 let applyColorFlag = true;
 
 
@@ -183,7 +183,7 @@ class PlayScene extends BaseScene {
 
                     this.placePipe(tempPipes[0], tempPipes[1]);
                     this.randomizePipeColor(tempPipes[0], tempPipes[1]);
-                    
+
                     this.incrementScore();
                     this.saveBestScore();
                     this.increaseDifficulty();
@@ -194,33 +194,33 @@ class PlayScene extends BaseScene {
         })
     }
 
-   
-   
+
+
 
     colorTest() {
 
-        let currentColor = 'white';
+       // let currentColor = 'white';
         this.pipes.getChildren().forEach(pipe => {
             if (pipe.getBounds().right <= this.bird.getBounds().right && pipe.getBounds().right >= this.bird.getBounds().right - 5) {
-              //  colorQueue.forEach(element => {
-                 //   console.log(this.getLastPushedElementAdjusted(colorQueue));
+                //  colorQueue.forEach(element => {
+                //   console.log(this.getLastPushedElementAdjusted(colorQueue));
                 // console.log(colorQueue);
-           //    });
+                //    });
 
-                 
-                currentColor = this.getLastPushedElementAdjusted(colorQueue);
-                
-              
 
-                if (currentColor == this.birdColor) {
+              //  currentColor = this.getLastPushedElementAdjusted(colorQueue);
+
+
+
+                if (this.getLastPushedElementAdjusted(colorQueue) == this.birdColor) {
                     console.log("colors match: ");
                     return;
                 }
 
                 else {
-                   console.log("colors DONT match: ");
+                    console.log("colors DONT match: ");
                     // console.log(this.birdColor + "  " + currentColor);
-                        this.gameOver();
+                    this.gameOver();
                 }
 
 
@@ -233,24 +233,24 @@ class PlayScene extends BaseScene {
         if (queue.length === 0) {
             return "Queue is empty";
         }
-        
-        let i = queue.length-1;
-        const lastpushedElement = queue[i]; 
+
+        let i = queue.length - 1;
+        const lastpushedElement = queue[i];
         //queue.shift(); 
-       // console.log(queue);
-        return lastpushedElement; 
+        // console.log(queue);
+        return lastpushedElement;
     }
 
     getLastPushedElementAdjusted(queue) {
         if (queue.length === 0) {
             return "Queue is empty";
         }
-        
-        let i = queue.length-4;
-        const lastpushedElement = queue[i]; 
+
+        let i = queue.length - 4;
+        const lastpushedElement = queue[i];
         //queue.shift(); 
-       // console.log(queue);
-        return lastpushedElement; 
+        // console.log(queue);
+        return lastpushedElement;
     }
 
 
@@ -261,7 +261,7 @@ class PlayScene extends BaseScene {
             lowerPipe.setTint(0xFF0000);
             this.pipeColor = 'red';
             colorQueue.push(this.pipeColor);
-          //  console.log(this.getLastPushedElement(colorQueue));
+            //  console.log(this.getLastPushedElement(colorQueue));
 
         };
         if (pick == 2) {
@@ -269,14 +269,14 @@ class PlayScene extends BaseScene {
             lowerPipe.setTint(0x00FF00);
             this.pipeColor = 'green';
             colorQueue.push(this.pipeColor);
-          //  console.log(this.getLastPushedElement(colorQueue));
+            //  console.log(this.getLastPushedElement(colorQueue));
         };
         if (pick == 3) {
             upperPipe.setTint(0x0000FF);
             lowerPipe.setTint(0x0000FF);
             this.pipeColor = 'blue';
             colorQueue.push(this.pipeColor);
-         //   console.log(this.getLastPushedElement(colorQueue));
+            //   console.log(this.getLastPushedElement(colorQueue));
         };
 
         // console.log(this.pipeColor);
@@ -353,14 +353,25 @@ class PlayScene extends BaseScene {
 
     }
 
+    resetColorQueue(queue) {
+        while (queue.length > 4) {
+            queue.pop(); 
+        }
+        console.log(colorQueue);
+    }
+
     gameOver() {
 
         // this.bird.x = this.config.startPosition.x;
         // this.bird.y = this.config.startPosition.y;
+        this.resetColorQueue(colorQueue);
+
         this.bird.body.velocity.y = 0;
 
         this.physics.pause();
         this.bird.setTint(0x000000);
+        this.birdColor = 'white';
+        
 
         this.saveBestScore();
 
